@@ -240,6 +240,16 @@ void freebsd::Linker::ConstructJob(Compilation &C, const JobAction &JA,
     assert(Output.isNothing() && "Invalid output.");
   }
 
+  if (Args.hasArg(options::OPT_framework)) {
+    if(!Args.hasArg(options::OPT_nostdlib)) {
+      CmdArgs.push_back("-F");
+      CmdArgs.push_back("/System/Library/Frameworks");
+      CmdArgs.push_back("-F");
+      CmdArgs.push_back("/Library/Frameworks");
+      CmdArgs.push_back("-lobjc");
+    }
+  }
+
   if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nostartfiles)) {
     const char *crt1 = nullptr;
     if (!Args.hasArg(options::OPT_shared)) {
@@ -274,7 +284,7 @@ void freebsd::Linker::ConstructJob(Compilation &C, const JobAction &JA,
   Args.AddAllArgs(CmdArgs, options::OPT_t);
   Args.AddAllArgs(CmdArgs, options::OPT_Z_Flag);
   Args.AddAllArgs(CmdArgs, options::OPT_r);
-
+  
   if (D.isUsingLTO()) {
     assert(!Inputs.empty() && "Must have at least one input.");
     addLTOOptions(ToolChain, Args, CmdArgs, Output, Inputs[0],

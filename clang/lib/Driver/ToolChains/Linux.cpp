@@ -560,6 +560,16 @@ void Linux::AddClangSystemIncludeArgs(const ArgList &DriverArgs,
   if (DriverArgs.hasArg(clang::driver::options::OPT_nostdinc))
     return;
 
+  if (DriverArgs.hasArg(options::OPT_framework)) {
+    if(!DriverArgs.hasArg(options::OPT_nostdlib)) {
+      CC1Args.push_back("-F");
+      CC1Args.push_back("/System/Library/Frameworks");
+      CC1Args.push_back("-F");
+      CC1Args.push_back("/Library/Frameworks");
+      CC1Args.push_back("-lobjc");
+    }
+  }
+
   if (!DriverArgs.hasArg(options::OPT_nostdlibinc))
     addSystemInclude(DriverArgs, CC1Args, SysRoot + "/usr/local/include");
 
