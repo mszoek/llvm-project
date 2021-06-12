@@ -5,7 +5,7 @@ task:
     cpu: 8
     memory: 8G
   build_script:
-    - apt update && apt install -y cmake g++ python3 python3-distutils clang libxml2-dev libedit-devliblzma-dev swig3.0 libpython3-dev
+    - apt update && apt install -y cmake g++ python3 python3-distutils clang libxml2-dev libedit-dev liblzma-dev swig3.0 libpython3-dev
     - cmake -S llvm -B build -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS="clang;compiler-rt;libcxx;libcxxabi;lldb;lld" -DLLVM_TARGETS_TO_BUILD=X86
     - cmake --build build -j 8
     - mkdir $CIRRUS_WORKING_DIR/root
