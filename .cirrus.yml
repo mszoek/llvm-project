@@ -1,15 +1,15 @@
 task:
-	name: Build
-	container:
-		image: debian:stable
-		cpu: 8
-		memory: 8G
-	build_script:
-		- sudo apt install -y cmake
-		- cmake -S llvm -B build -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS="clang;compiler-rt;libcxx;libcxxabi;lldb;lld" -DLLVM_TARGETS_TO_BUILD=X86
-		- cmake --build build -j 8
-		- mkdir $CIRRUS_WORKING_DIR/root
-		- cd build && sudo make DESTDIR=$CIRRUS_WORKING_DIR/root install
-		- tar czpf $CIRRUS_WORKING_DIR/llvm.tgz -C $CIRRUS_WORKING_DIR/root .
-	artifacts:
-		path: "llvm.tgz"
+  name: Build
+  container:
+    image: debian:stable
+    cpu: 8
+    memory: 8G
+  build_script:
+    - sudo apt install -y cmake
+    - cmake -S llvm -B build -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS="clang;compiler-rt;libcxx;libcxxabi;lldb;lld" -DLLVM_TARGETS_TO_BUILD=X86
+    - cmake --build build -j 8
+    - mkdir $CIRRUS_WORKING_DIR/root
+    - cd build && sudo make DESTDIR=$CIRRUS_WORKING_DIR/root install
+    - tar czpf $CIRRUS_WORKING_DIR/llvm.tgz -C $CIRRUS_WORKING_DIR/root .
+  artifacts:
+    path: "llvm.tgz"
