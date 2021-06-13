@@ -1,4 +1,16 @@
-# The LLVM Compiler Infrastructure
+# Airyx LLVM Toolchain
+
+This is the development branch of LLVM for the
+[Airyx OS](https://github.com/mszoek/airyx). Airyx LLVM is
+extended to support Framework bundles (i.e. as in macOS/Darwin), to use
+the same -F and -framework arguments, and to include
+/System/Library/Frameworks in the standard search paths. It produces
+ELF shared objects rather than Mach-O.
+
+[![Build Status](https://api.cirrus-ci.com/github/mszoek/llvm-project.svg)](https://api.cirrus-ci.com/v1/artifact/github/mszoek/llvm-project/Build/binary/llvm.tgz)
+
+
+## The LLVM Compiler Infrastructure
 
 This directory and its sub-directories contain source code for LLVM,
 a toolkit for the construction of highly optimized compilers,
